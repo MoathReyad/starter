@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'mobile',
+        'expire',
     ];
 
     /**
@@ -42,4 +43,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function where(string $string, int $int)
+    {
+    }
+
+    public static function pluck(string $string)
+    {
+    }
 }

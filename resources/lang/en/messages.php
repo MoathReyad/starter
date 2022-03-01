@@ -14,7 +14,9 @@ return [
     */
 
     'welcome' => 'WELCOME',
-    'bay' => 'BAY'
+    'bay' => 'BAY',
+    'offer name required'=>'Offer Name Required',
+    'offer name unique'=>'Offer Name exists',
 
 ];
 

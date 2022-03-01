@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,6 +122,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/redirect/{service}','App\Http\Controllers\SocialiteController@redirect');
 
 //Route::get('/callback/{service}','App\Http\Controllers\SocialiteController@callback');
+
+
+Route::get('fillable','\App\Http\Controllers\CrudController@getOffers');
+
+Route::group(['prefix' => 'offers'],function(){
+    //Route::get('store','\App\Http\Controllers\CrudController@store');
+    Route::get('create', '\App\Http\Controllers\CrudController@create');
+    Route::post('store','\App\Http\Controllers\CrudController@store')->name('offerStore');
+});
+
+
 
 
 
