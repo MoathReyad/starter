@@ -18,4 +18,5 @@ return [
     'bay' => 'مع السلامة',
     'offer name required'=>'اسم العرض مطلوب',
     'offer name unique'=>'اسم العرض موجود',
+
 ];

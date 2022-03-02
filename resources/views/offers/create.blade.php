@@ -8,6 +8,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
         <!-- Styles -->
         <style>
@@ -21,6 +23,25 @@
         </style>
     </head>
     <body class="antialiased">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </nav>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -61,17 +82,17 @@
                                 <form method="POST" action="{{route('offerStore')}}">
                                     @csrf
                                     {{-- <input name="@csrf" value="{{csrf_token()}}"> --}}
-                                    offer name:<input type="text" name="name"><br>
+                                    offer name:<input type="text" name="name" style="background: #3dd5f3"><br>
                                     @error('name')
                                         <small class="form-text text-danger">{{$message}}</small><br>
                                     @enderror
 
-                                    offer price:<input type="text" name="price"><br>
+                                    offer price:<input type="text" name="price" style="background: #3dd5f3"><br>
                                     @error('price')
                                     <small class="form-text text-danger">{{$message}}</small><br>
                                     @enderror
 
-                                    offer details:<input type="text" name="details"><br>
+                                    offer details:<input type="text" name="details" style="background: #3dd5f3"><br>
                                     @error('details')
                                     <small class="form-text text-danger">{{$message}}</small><br>
                                     @enderror
