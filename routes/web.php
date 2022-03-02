@@ -126,16 +126,17 @@ Route::get('/redirect/{service}','App\Http\Controllers\SocialiteController@redir
 
 Route::get('fillable','\App\Http\Controllers\CrudController@getOffers');
 
-Route::group(
-    [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-    ], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
 
     Route::group(['prefix' => 'offers'],function(){
         //Route::get('store','\App\Http\Controllers\CrudController@store');
         Route::get('create', '\App\Http\Controllers\CrudController@create');
         Route::post('store','\App\Http\Controllers\CrudController@store')->name('offerStore');
+
+        Route::get('edit/{offer_id}', '\App\Http\Controllers\CrudController@editOffer');
+        Route::post('update/{offer_id}','\App\Http\Controllers\CrudController@updateOffer')->name('offerUpdate');
+
+        Route::get('all', '\App\Http\Controllers\CrudController@getAllOffers');
     });
 });
 
