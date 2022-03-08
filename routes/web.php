@@ -19,30 +19,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test1',function(){
+Route::get('/test1', function () {
     return ' welcome';
 });
 ///////////////////////////////////////////
 // route parameters
-Route::get('/test2/{id}',function($id){
+Route::get('/test2/{id}', function ($id) {
     //required parameter
-   return $id;
+    return $id;
 });
 
-Route::get('/test3/{id?}',function(){
+Route::get('/test3/{id?}', function () {
     // optional parameter
-   return ' welcome';
+    return ' welcome';
 });
 /////////////////////////////////////////////////
 // route name
-Route::get('/show-number/{id}',function($id){
+Route::get('/show-number/{id}', function ($id) {
     //required parameter
     return $id;
-}) -> name('a');
+})->name('a');
 
-Route::get('/show-string/{id?}',function(){
+Route::get('/show-string/{id?}', function () {
     return 'Moath Reyad';
-}) -> name('b');
+})->name('b');
 ////////////////////////////////////////////////
 /*
 //namespace
@@ -80,16 +80,16 @@ Route::get('check',function(){
 
 //Route::get('second','App\Http\Controllers\Admin\SecondController@showString');
 
-Route::group(['namespace'=>'App\Http\Controllers\Admin'],function(){
-    Route::get('second','SecondController@showString0')-> middleware('auth');
-    Route::get('second1','SecondController@showString1');
-    Route::get('second2','SecondController@showString2');
-    Route::get('second3','SecondController@showString3');
+Route::group(['namespace' => 'App\Http\Controllers\Admin'], function () {
+    Route::get('second', 'SecondController@showString0')->middleware('auth');
+    Route::get('second1', 'SecondController@showString1');
+    Route::get('second2', 'SecondController@showString2');
+    Route::get('second3', 'SecondController@showString3');
     //
     //
 });
 
-Route::get('login',function (){
+Route::get('login', function () {
     return 'must be login to access this rout';
 })->name('login');
 
@@ -114,32 +114,46 @@ Route::get('index','App\Http\Controllers\Front\UserController@getIndex');
 */
 
 
-
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
-Route::get('/redirect/{service}','App\Http\Controllers\SocialiteController@redirect');
+Route::get('/redirect/{service}', 'App\Http\Controllers\SocialiteController@redirect');
 
 //Route::get('/callback/{service}','App\Http\Controllers\SocialiteController@callback');
 
 
-Route::get('fillable','\App\Http\Controllers\CrudController@getOffers');
+Route::get('fillable', '\App\Http\Controllers\CrudController@getOffers');
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 
-    Route::group(['prefix' => 'offers'],function(){
+    Route::group(['prefix' => 'offers'], function () {
         //Route::get('store','\App\Http\Controllers\CrudController@store');
         Route::get('create', '\App\Http\Controllers\CrudController@create');
-        Route::post('store','\App\Http\Controllers\CrudController@store')->name('offerStore');
+        Route::post('store', '\App\Http\Controllers\CrudController@store')->name('offerStore');
 
         Route::get('edit/{offer_id}', '\App\Http\Controllers\CrudController@editOffer');
-        Route::post('update/{offer_id}','\App\Http\Controllers\CrudController@updateOffer')->name('offerUpdate');
+        Route::post('update/{offer_id}', '\App\Http\Controllers\CrudController@updateOffer')->name('offerUpdate');
+        Route::get('delete/{offer_id}', '\App\Http\Controllers\CrudController@delete')->name('offerDelete');
+        Route::get('all', '\App\Http\Controllers\CrudController@getAllOffers')->name('offerAll');
 
-        Route::get('all', '\App\Http\Controllers\CrudController@getAllOffers');
     });
+    Route::get('youtube', '\App\Http\Controllers\CrudController@getVideo');
 });
 
+
+################################################ Begin Ajax Routes ##################################################################
+Route::group(['prefix' => 'ajax-offers'], function () {
+    Route::get('create', '\App\Http\Controllers\OfferController@create');
+    Route::post('store', '\App\Http\Controllers\OfferController@store')->name('ajaxOffersStore');
+    Route::get('all','\App\Http\Controllers\OfferController@all')->name('ajaxOfferAll');
+    Route::get('edit/{offer_id}', '\App\Http\Controllers\OfferController@edit')->name('ajaxOfferEdit');
+    Route::post('update', '\App\Http\Controllers\OfferController@update')->name('ajaxOfferUpdate');
+    Route::post('delete','\App\Http\Controllers\OfferController@delete')->name('ajaxOfferDelete');
+
+});
+
+################################################ End Ajax Routes ##################################################################
 
 
 

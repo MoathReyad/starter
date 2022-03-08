@@ -70,7 +70,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">
-                                <h1>Add offers details</h1>
+                                <h1>Update your offers</h1>
                             </div>
 
                             <div class="ml-12">

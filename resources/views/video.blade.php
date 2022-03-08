@@ -8,8 +8,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
         <!-- Styles -->
         <style>
@@ -23,25 +21,6 @@
         </style>
     </head>
     <body class="antialiased">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                {{ $properties['native'] }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </nav>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -70,73 +49,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">
-                                <h1>Add offers details</h1>
+                                Video show: ({{$video->viewers}})
                             </div>
 
                             <div class="ml-12">
-                                @if(Session::has('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{Session::get('success')}}
-                                    </div><br>
-                                @endif
-                                    <form method="POST" action="{{route('offerStore')}}" enctype="multipart/form-data">
-
-                                        @csrf
-                                        {{-- <input name="_token" value="{{csrf_token()}}"> --}}
-
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">أختر صوره العرض</label>
-                                            <input type="file" class="form-control" name="photo">
-                                            @error('photo')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">{{__('messages.Offer Name ar')}}</label>
-                                            <input type="text" class="form-control" name="name_ar" placeholder="{{__('messages.Offer Name')}}">
-                                            @error('name_ar')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">{{__('messages.Offer Name en')}}</label>
-                                            <input type="text" class="form-control" name="name_en" placeholder="{{__('messages.Offer Name')}}">
-                                            @error('name_en')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">{{__('messages.Offer Price')}}</label>
-                                            <input type="text" class="form-control" name="price" placeholder="{{__('messages.Offer Price')}}">
-                                            @error('price')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">{{__('messages.Offer details ar')}}</label>
-                                            <input type="text" class="form-control" name="details_ar"
-                                                   placeholder="{{__('messages.Offer details')}}">
-                                            @error('details_ar')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">{{__('messages.Offer details en')}}</label>
-                                            <input type="text" class="form-control" name="details_en"
-                                                   placeholder="{{__('messages.Offer details')}}">
-                                            @error('details_en')
-                                            <small class="form-text text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">{{__('messages.Save Offer')}}</button>
-                                    </form>
-
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/GVNDbTwOSiw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
                             </div>
                         </div>
 
@@ -178,7 +97,7 @@
 {{--                                    <p>{{$obj -> name}} -- {{$obj -> id}}</p>--}}
 
 {{--                                    @if($obj -> name == 'moath')--}}
-{{--                                        <p>yes iam moath</p>--}}
+{{--                                        <p>yes iam moth</p>--}}
 {{--                                    @else--}}
 {{--                                        <p>no moath</p>--}}
 {{--                                        @endif--}}

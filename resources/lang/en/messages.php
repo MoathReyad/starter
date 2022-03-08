@@ -15,8 +15,8 @@ return [
 
     'welcome'                       => 'WELCOME',
     'bay'                           => 'BAY',
-    'offer name required'           =>'Offer Name Required',
-    'offer name unique'             =>'Offer Name exists',
+    'offer name required'           => 'Offer Name Required',
+    'offer name unique'             => 'Offer Name exists',
     "offer name must be unique"     => "offer name must be unique",
     "Add your offer"                => 'Add your offer ',
     "Offer Name ar"                 => 'Arabic Offer Name',
@@ -33,7 +33,11 @@ return [
     "delete"                        => "delete",
     "offer not exist"               => "offer not exist",
     "offer deleted successfully"    => "offer deleted successfully",
-    "Offer operation"               =>'Operation',
-    "edit Offer"                    =>'Edit',
+    "Offer operation"               => 'Operation',
+    "edit Offer"                    => 'Edit',
+    "Offer photo"                   => 'Offer Photo',
+    "offer delete"                  => 'delete',
+    "offer not exist"               => 'Offer Not Exist',
+    "offer delete successfully"     => 'offer delete successfully',
 ];
 

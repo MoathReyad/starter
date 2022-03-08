@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoViewer;
 use App\Http\Requests\offerRequest;
 use App\Models\Offer;
+use App\Models\Video;
+use App\Traits\offersTrait;
 use Illuminate\Http\Request;
 use LaravelLocalization;
-
 class CrudController extends Controller
 {
+    use offersTrait;
+    // photo
+    // Update
+    // delete
+    // Upload image
+    // improve code
 
     public function __construct(){
 
@@ -41,8 +49,12 @@ class CrudController extends Controller
             return redirect()->back()->withErrors($validate)->withInput($request->all());
         }
         */
+
         // insert
+        $file_name = $this->saveImages($request->photo,'images/offers');
+
         Offer::create([
+            'photo'=> $file_name,
             'name_ar' => $request->name_ar,
             'name_en' =>   $request->name_en,
             'price' =>  $request->price,
@@ -76,6 +88,7 @@ class CrudController extends Controller
             'name_'.LaravelLocalization::getCurrentLocale().' as name' ,
             'price',
             'details_'.LaravelLocalization::getCurrentLocale().' as details' ,
+            'photo',
         )->get();
         return view('offers.all',compact('offers'));
     }
@@ -92,6 +105,20 @@ class CrudController extends Controller
         $offer = Offer::select('id', 'name_ar', 'name_en', "price", 'details_ar', 'details_en')->find($offer_id);
 
         return view('offers.edit',compact('offer'));
+    }
+
+    public function delete($offer_id){
+
+        // check the offer exist in database
+        $offer = Offer::find($offer_id); // Offer::where('id',$$offer_id)->first();
+        if(!$offer)
+            return redirect()->back()->with(['error'=>__('messages.offer not exist')]);
+        // Delete offer
+        $offer -> delete();
+        return redirect()->route('offerAll')->with(['success'=>__('messages.offer delete successfully')]);
+
+
+
     }
 
     public function updateOffer(offerRequest  $request, $offer_id){
@@ -119,4 +146,11 @@ class CrudController extends Controller
         ]);
         */
     }
+    public function getVideo(){
+
+        $video = Video::first();
+        event(new VideoViewer($video)); // Fire event
+        return view('video')->with('video',$video);
+    }
+
 }

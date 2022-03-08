@@ -36,4 +36,8 @@ return [
     "offer deleted successfully"    => 'تم حذف العرض بنجاح',
     "Offer operation"               => 'عمليات',
     "edit Offer"                    => 'تعديل',
+    "Offer photo"                   => 'صورة العرض',
+    "offer delete"                  => 'حذف',
+    "offer not exist"               => "العرض غير موجود",
+    "offer delete successfully"     => "تم الحذف بنجاح",
 ];
