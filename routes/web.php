@@ -138,7 +138,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('all', '\App\Http\Controllers\CrudController@getAllOffers')->name('offerAll');
 
     });
-    Route::get('youtube', '\App\Http\Controllers\CrudController@getVideo');
+    Route::get('youtube', '\App\Http\Controllers\CrudController@getVideo')->middleware('auth');
 });
 
 
@@ -152,8 +152,23 @@ Route::group(['prefix' => 'ajax-offers'], function () {
     Route::post('delete','\App\Http\Controllers\OfferController@delete')->name('ajaxOfferDelete');
 
 });
-
 ################################################ End Ajax Routes ##################################################################
+
+
+################################################ Begin Authentication && Guards ###################################################
+Route::group(['middleware'=>'CheckAge'],function (){
+    Route::get('adults','\App\Http\Controllers\Auth\CustomAuthController@adult')->name('adults');
+});
+Route::get('default',function (){return 'Not found';})->name('notAdult'); // test route
+
+Route::get('site','\App\Http\Controllers\Auth\CustomAuthController@site')->middleware('auth:web')->name('site');
+Route::get('admin','\App\Http\Controllers\Auth\CustomAuthController@admin')->middleware('auth:admin')->name('admin');
+
+Route::get('admin/login','\App\Http\Controllers\Auth\CustomAuthController@adminLogin')->name('adminLogin');
+Route::post('admin/login','\App\Http\Controllers\Auth\CustomAuthController@checkAdminLogin')->name('saveAdminLogin');
+
+################################################ End Authentication && Guards #####################################################
+
 
 
 

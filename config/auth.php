@@ -36,9 +36,17 @@ return [
     */
 
     'guards' => [
-        'web' => [
+
+        // users site
+        'web' => [ // web : represetns the default authentication
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'users',// The users represents a table in DB
+
+        // Admin admin
+        ],
+        'admin' => [ // guards it is admin
+            'driver' => 'session',
+            'provider' => 'admins', // The admin represents a table in DB
         ],
     ],
 
@@ -63,6 +71,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
