@@ -24,6 +24,7 @@ class offerRequest extends FormRequest
     public function rules()
     {
         return [
+            'photo' => 'required',
             'name_ar' => 'required|max:100,unique:offers,name_ar',
             'name_en' => 'required|max:100,unique:offers,name_en',
             'price' => 'required|numeric',
@@ -34,6 +35,7 @@ class offerRequest extends FormRequest
 
     public function messages(){
         return [
+            'photo.required' => 'صورة العرض مطلوبة',
             'name_ar.required' => __('messages.offer name required'),
             'name_en.required' => __('messages.offer name required'),
             'name_ar.unique' => 'اسم العرض موجود ',

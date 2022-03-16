@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\offerRequest;
 use App\Models\Offer;
 use App\Traits\offersTrait;
 use http\Env\Response;
@@ -19,7 +20,7 @@ class OfferController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(offerRequest $request)
     {
         // Save offer into DB using Ajax
 

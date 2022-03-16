@@ -146,29 +146,70 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 Route::group(['prefix' => 'ajax-offers'], function () {
     Route::get('create', '\App\Http\Controllers\OfferController@create');
     Route::post('store', '\App\Http\Controllers\OfferController@store')->name('ajaxOffersStore');
-    Route::get('all','\App\Http\Controllers\OfferController@all')->name('ajaxOfferAll');
+    Route::get('all', '\App\Http\Controllers\OfferController@all')->name('ajaxOfferAll');
     Route::get('edit/{offer_id}', '\App\Http\Controllers\OfferController@edit')->name('ajaxOfferEdit');
     Route::post('update', '\App\Http\Controllers\OfferController@update')->name('ajaxOfferUpdate');
-    Route::post('delete','\App\Http\Controllers\OfferController@delete')->name('ajaxOfferDelete');
+    Route::post('delete', '\App\Http\Controllers\OfferController@delete')->name('ajaxOfferDelete');
 
 });
 ################################################ End Ajax Routes ##################################################################
-
-
+###########################################################################################################################################
 ################################################ Begin Authentication && Guards ###################################################
-Route::group(['middleware'=>'CheckAge'],function (){
-    Route::get('adults','\App\Http\Controllers\Auth\CustomAuthController@adult')->name('adults');
+Route::group(['middleware' => 'CheckAge'], function () {
+    Route::get('adults', '\App\Http\Controllers\Auth\CustomAuthController@adult')->name('adults');
 });
-Route::get('default',function (){return 'Not found';})->name('notAdult'); // test route
+Route::get('default', function () {
+    return 'Not found';
+})->name('notAdult'); // test route
 
-Route::get('site','\App\Http\Controllers\Auth\CustomAuthController@site')->middleware('auth:web')->name('site');
-Route::get('admin','\App\Http\Controllers\Auth\CustomAuthController@admin')->middleware('auth:admin')->name('admin');
+Route::get('site', '\App\Http\Controllers\Auth\CustomAuthController@site')->middleware('auth:web')->name('site');
+Route::get('admin', '\App\Http\Controllers\Auth\CustomAuthController@admin')->middleware('auth:admin')->name('admin');
 
-Route::get('admin/login','\App\Http\Controllers\Auth\CustomAuthController@adminLogin')->name('adminLogin');
-Route::post('admin/login','\App\Http\Controllers\Auth\CustomAuthController@checkAdminLogin')->name('saveAdminLogin');
+Route::get('admin/login', '\App\Http\Controllers\Auth\CustomAuthController@adminLogin')->name('adminLogin');
+Route::post('admin/login', '\App\Http\Controllers\Auth\CustomAuthController@checkAdminLogin')->name('saveAdminLogin');
 
-################################################ End Authentication && Guards #####################################################
+################################################ End Authentication && Guards ##############################################################
+###########################################################################################################################################
+###############################################  Begin one to one relation route ############################################################
+Route::get('has-one', '\App\Http\Controllers\Relation\RelationController@hasOneRelation');
+Route::get('has-one-reverse', '\App\Http\Controllers\Relation\RelationController@hasOneRelationReverse');
 
+Route::get('get-user-has-phone', '\App\Http\Controllers\Relation\RelationController@getUserHasPhone');
+Route::get('get-user-has-phone-with-condition', '\App\Http\Controllers\Relation\RelationController@getUserWhereHasPhoneWithCondition');
+
+Route::get('get-user-not-has-phone', '\App\Http\Controllers\Relation\RelationController@getUserNotHasPhone');
+
+############################################### End one to one relation route ################################################################
+###########################################################################################################################################
+###############################################  Begin one to many relation route ############################################################
+Route::get('hospital-has-many', '\App\Http\Controllers\Relation\RelationController@getHospitalDoctor');
+
+Route::get('hospitals', '\App\Http\Controllers\Relation\RelationController@hospitals')->name('hospitalAll');
+Route::get('doctors/{hospital_id}', '\App\Http\Controllers\Relation\RelationController@doctors')->name('hospitalDoctor');
+Route::get('hospitals/{hospital_id}', '\App\Http\Controllers\Relation\RelationController@deleteHospitals')->name('hospitalDelete');
+
+Route::get('hospitals-has-doctors', '\App\Http\Controllers\Relation\RelationController@hospitalsHasOnlyMaleDoctor');
+Route::get('hospitals-has-doctor-male', '\App\Http\Controllers\Relation\RelationController@hospitalsHasDoctorMale');
+Route::get('hospitals-not-has-doctor', '\App\Http\Controllers\Relation\RelationController@hospitalsNotHasDoctors');
+
+############################################### End one to many relation route ###############################################################
+###########################################################################################################################################
+############################################### Begin many to many relation route ############################################################
+Route::get('doctor-services','\App\Http\Controllers\Relation\RelationController@getDoctorServices');
+Route::get('service-doctors','\App\Http\Controllers\Relation\RelationController@getServiceDoctors');
+
+Route::get('doctors-services/{doctor_id}', '\App\Http\Controllers\Relation\RelationController@getDoctorServicesById')->name('doctorServices');
+Route::post('saveServices-toDoctor', '\App\Http\Controllers\Relation\RelationController@saveServicesToDoctors')->name('save.services.to.Doctor');
+
+############################################### End many to many relation route ##############################################################
+###########################################################################################################################################
+############################################### Begin has one through relation route ########################################################
+Route::get('has-one-through','\App\Http\Controllers\Relation\RelationController@getPatientDoctor');
+############################################### End has one through relation route ########################################################
+###########################################################################################################################################
+############################################### Begin has many through relation route ########################################################
+Route::get('has-many-through','\App\Http\Controllers\Relation\RelationController@getCountryDoctor');
+############################################### End has many through relation route ########################################################
 
 
 

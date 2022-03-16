@@ -52,4 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function pluck(string $string)
     {
     }
+    ############################### Begin relations ######################################
+    public function phone(){
+       return $this->hasOne('App\Models\Phone','user_id');
+    }
+    ############################### End relations ########################################
+
 }
